@@ -68,7 +68,6 @@
     clippy::needless_borrow,
     clippy::match_wildcard_for_single_variants,
     clippy::if_let_mutex,
-    clippy::mismatched_target_os,
     clippy::await_holding_lock,
     clippy::match_on_vec_items,
     clippy::imprecise_flops,
@@ -87,7 +86,8 @@
     future_incompatible,
     nonstandard_style,
     missing_debug_implementations,
-    missing_docs
+    missing_docs,
+    unexpected_cfgs
 )]
 #![deny(unreachable_pub)]
 #![allow(elided_lifetimes_in_paths, clippy::type_complexity)]
@@ -95,7 +95,6 @@
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![cfg_attr(test, allow(clippy::float_cmp))]
 
-use async_trait::async_trait;
 use axum_core::{
     extract::{FromRef, FromRequestParts},
     response::{IntoResponse, IntoResponseParts, Response, ResponseParts},
@@ -167,7 +166,6 @@ impl Flash {
     }
 }
 
-#[async_trait]
 impl<S> FromRequestParts<S> for Flash
 where
     S: Send + Sync,
@@ -351,7 +349,6 @@ impl<'a> IntoIterator for &'a IncomingFlashes {
     }
 }
 
-#[async_trait]
 impl<S> FromRequestParts<S> for IncomingFlashes
 where
     S: Send + Sync,
